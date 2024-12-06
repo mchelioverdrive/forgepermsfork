@@ -1,0 +1,16 @@
+[
+{
+  "modid": "bfc",
+  "name": "betterforgechat",
+  "description": "better forge chat",
+  "version": "1.5.x",
+  "mcversion": "1.7.10",
+  "url": "discord.gg/EfrnP8WJtj",
+  "updateUrl": "",
+  "authorList": ["Ragex"],
+  "credits": "Zealot for suggesting this dumpsterfire",
+  "logoFile": "assets/hfr/textures/logo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
