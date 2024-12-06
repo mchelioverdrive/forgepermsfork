@@ -1,11 +1,11 @@
-package com.jeremiahbl.bfcmod.events;
+package com.ragex.bfcmod.events;
 
-import com.jeremiahbl.bfcmod.BetterForgeChat;
-import com.jeremiahbl.bfcmod.commands.NickCommands;
-import com.jeremiahbl.bfcmod.config.ConfigHandler;
-import com.jeremiahbl.bfcmod.utils.IntegratedNicknameProvider;
-import com.jeremiahbl.bfcmod.utils.moddeps.FTBNicknameProvider;
-import com.jeremiahbl.bfcmod.utils.moddeps.LuckPermsProvider;
+import com.ragex.bfcmod.BetterForgeChat;
+import com.ragex.bfcmod.commands.NickCommands;
+import com.ragex.bfcmod.config.ConfigHandler;
+import com.ragex.bfcmod.utils.IntegratedNicknameProvider;
+import com.ragex.bfcmod.utils.moddeps.FTBNicknameProvider;
+import com.ragex.bfcmod.utils.moddeps.LuckPermsProvider;
 
 import net.minecraftforge.event.server.ServerStartedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

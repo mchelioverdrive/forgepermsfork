@@ -1,10 +1,10 @@
-package com.jeremiahbl.bfcmod.events;
+package com.ragex.bfcmod.events;
 
-import com.jeremiahbl.bfcmod.config.ConfigHandler;
-import com.jeremiahbl.bfcmod.config.IReloadable;
-import com.jeremiahbl.bfcmod.config.PermissionsHandler;
-import com.jeremiahbl.bfcmod.config.PlayerData;
-import com.jeremiahbl.bfcmod.utils.BetterForgeChatUtilities;
+import com.ragex.bfcmod.config.ConfigHandler;
+import com.ragex.bfcmod.config.IReloadable;
+import com.ragex.bfcmod.config.PermissionsHandler;
+import com.ragex.bfcmod.config.PlayerData;
+import com.ragex.bfcmod.utils.BetterForgeChatUtilities;
 import com.mojang.authlib.GameProfile;
 
 import net.minecraft.server.level.ServerPlayer;

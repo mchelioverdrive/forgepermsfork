@@ -1,4 +1,4 @@
-package com.jeremiahbl.bfcmod.utils;
+package com.ragex.bfcmod.utils;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 

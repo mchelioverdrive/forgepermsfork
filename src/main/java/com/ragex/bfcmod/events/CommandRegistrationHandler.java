@@ -1,15 +1,17 @@
-package com.jeremiahbl.bfcmod.events;
+package com.ragex.bfcmod.events;
 
-import com.jeremiahbl.bfcmod.commands.BfcCommands;
+import com.ragex.bfcmod.commands.BfcCommands;
 
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraft.command.ICommand;
+import net.minecraft.command.ServerCommandManager;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 
-@EventBusSubscriber
 public class CommandRegistrationHandler {
-	@SubscribeEvent
-	public void registerCommands(RegisterCommandsEvent e) {
-		BfcCommands.register(e.getDispatcher());
+
+	public static void registerCommands(FMLServerStartingEvent event) {
+		ServerCommandManager commandManager = (ServerCommandManager) event.getServer().getCommandManager();
+
+		// Register your commands here
+		commandManager.registerCommand(new BfcCommands());
 	}
 }

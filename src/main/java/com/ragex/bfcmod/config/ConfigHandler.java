@@ -1,72 +1,97 @@
-package com.jeremiahbl.bfcmod.config;
+package com.ragex.bfcmod.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import java.io.File;
+
+import net.minecraftforge.common.config.Configuration;
 
 public class ConfigHandler {
-	private static final ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
-	public static final ConfigBuilder config = new ConfigBuilder(builder);
-	public static ForgeConfigSpec spec = builder.build();
-	
-	public static class ConfigBuilder {
-		public final ForgeConfigSpec.ConfigValue<String> playerNameFormat;
-		public final ForgeConfigSpec.ConfigValue<String> chatMessageFormat;
-		public final ForgeConfigSpec.ConfigValue<String> timestampFormat;
-		public final ForgeConfigSpec.ConfigValue<String> discordBotToken;
 
-		public final ForgeConfigSpec.ConfigValue<Integer> maximumNicknameLength;
-		public final ForgeConfigSpec.ConfigValue<Integer> minimumNicknameLength;
-		
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableTimestamp;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableFtbEssentials;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableLuckPerms;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableMarkdown;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableColorsCommand;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableTabListIntegration;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableMetadataInTabList;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableNicknamesInTabList;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableWhoisCommand;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableChatNicknameCommand;
-		public final ForgeConfigSpec.ConfigValue<Boolean> autoEnableChatNicknameCommand;
-		public final ForgeConfigSpec.ConfigValue<Boolean> enableDiscordBotIntegration;
-		
-		public ConfigBuilder(ForgeConfigSpec.Builder builder) {
-			builder.push("BetterForgeChatModConfig");
-			playerNameFormat = builder
-					.comment("  Controls the chat message format",
-							 "    $prefix is replaced by the user's prefix or nothing if the user has no prefix",
-							 "    $suffix is replaced by the user's suffix or nothing if the user has no suffix",
-							 "    $name is replaced by the user's name, or nickname if they have one")
-					.define("playerNameFormat", "$prefix$name$suffix");
-			chatMessageFormat = builder
-					.comment("  Controls the chat message format",
-							 "    $time is replaced by the timestamp field or nothing if disabled", 
-							 "    $name is replaced by the user's name, or nickname if they have one",
-							 "    $msg is replaced by the username's message (if you use it more then once it WILL break this mod)")
-					.define("chatMessageFormat", "$time | $name: $msg");
-			timestampFormat = builder
-					.comment("  Timestamp format following the java SimpleDateFormat",
-							 "    Read more here: https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html")
-					.define("timestampFormat", "HH:mm");
-			discordBotToken = builder.comment("  Discord bot token for discord integration").define("discordBotToken", "");
-			enableTimestamp = builder.comment("  Enables or disables the filling in of timestamps").define("enableTimestamp", true);
-			enableFtbEssentials = builder.comment("  Enables or disables FTB essentials nickname integration").define("useFtbEssentials", true);
-			enableLuckPerms = builder.comment("  Enables or disables LuckPerms integration").define("useLuckPerms", true);
-			enableMarkdown = builder.comment("  Enables or disables markdown styling").define("markdownEnabled", true);
-			enableTabListIntegration = builder.comment("  Enables or disables custom tab list information").define("tabList", true);
-			enableMetadataInTabList = builder.comment("  Enables or disables prefixes&suffixes in the tab list").define("tabListMetadata", true);
-			enableNicknamesInTabList = builder.comment("  Enables or disables nicknames in the tab list").define("tabListNicknames", true);
-			enableColorsCommand = builder.comment("  Enables or disables the /colors command").define("enableColorsCommand", true);
-			enableWhoisCommand = builder.comment(
-					"  Enables or disables the integrated whois command"
-				  + "    (If autoIntegratedNicknames is true, this setting is ignored) ").define("enableWhoisCommand", true);
-			enableChatNicknameCommand = builder.comment(
-					  "  Enables or disables the integrated nickname command"
-					+ "   (If autoIntegratedNicknames is true, this setting is ignored) ").define("enableIntegratedNicknames", false);
-			enableDiscordBotIntegration = builder.comment("  Enables or disables discord integration").define("enableDiscordIntegraation", false);
-			autoEnableChatNicknameCommand = builder.comment("  When true, enables the integrated nickname-related commands if FTB essentials is not present").define("autoIntegratedNicknames", true);
-			maximumNicknameLength = builder.comment("  Maximum allowed nickname length (for integrated nickname commands)").defineInRange("maximumNicknameLength", 50, 1, 500);
-			minimumNicknameLength = builder.comment("  Minimum allowed nickname length (for integrated nickname commands)").defineInRange("minimumNicknameLength", 1, 1, 500);
-			builder.pop();
+	public static Configuration config;
+
+	// Configuration values
+	public static String playerNameFormat;
+	public static String chatMessageFormat;
+	public static String timestampFormat;
+	public static String discordBotToken;
+
+	public static int maximumNicknameLength;
+	public static int minimumNicknameLength;
+
+	public static boolean enableTimestamp;
+	public static boolean enableFtbEssentials;
+	public static boolean enableLuckPerms;
+	public static boolean enableMarkdown;
+	public static boolean enableColorsCommand;
+	public static boolean enableTabListIntegration;
+	public static boolean enableMetadataInTabList;
+	public static boolean enableNicknamesInTabList;
+	public static boolean enableWhoisCommand;
+	public static boolean enableChatNicknameCommand;
+	public static boolean autoEnableChatNicknameCommand;
+	public static boolean enableDiscordBotIntegration;
+
+	public static void loadConfig(File configFile) {
+		config = new Configuration(configFile);
+
+		try {
+			config.load();
+
+			// Read configuration values
+			playerNameFormat = config.getString("playerNameFormat", "General", "$prefix$name$suffix",
+					"Controls the chat message format\n" +
+							"$prefix: user's prefix or nothing\n" +
+							"$suffix: user's suffix or nothing\n" +
+							"$name: user's name or nickname if present");
+
+			chatMessageFormat = config.getString("chatMessageFormat", "General", "$time | $name: $msg",
+					"Controls the chat message format\n" +
+							"$time: timestamp\n" +
+							"$name: user's name or nickname\n" +
+							"$msg: user's message");
+
+			timestampFormat = config.getString("timestampFormat", "General", "HH:mm",
+					"Timestamp format following the java SimpleDateFormat.\n" +
+							"Read more: https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html");
+
+			discordBotToken = config.getString("discordBotToken", "General", "",
+					"Discord bot token for integration.");
+
+			enableTimestamp = config.getBoolean("enableTimestamp", "Features", true,
+					"Enables or disables the filling in of timestamps.");
+			enableFtbEssentials = config.getBoolean("useFtbEssentials", "Features", true,
+					"Enables or disables FTB essentials nickname integration.");
+			enableLuckPerms = config.getBoolean("useLuckPerms", "Features", true,
+					"Enables or disables LuckPerms integration.");
+			enableMarkdown = config.getBoolean("markdownEnabled", "Features", true,
+					"Enables or disables markdown styling.");
+			enableTabListIntegration = config.getBoolean("tabList", "Features", true,
+					"Enables or disables custom tab list information.");
+			enableMetadataInTabList = config.getBoolean("tabListMetadata", "Features", true,
+					"Enables or disables prefixes & suffixes in the tab list.");
+			enableNicknamesInTabList = config.getBoolean("tabListNicknames", "Features", true,
+					"Enables or disables nicknames in the tab list.");
+			enableColorsCommand = config.getBoolean("enableColorsCommand", "Features", true,
+					"Enables or disables the /colors command.");
+			enableWhoisCommand = config.getBoolean("enableWhoisCommand", "Features", true,
+					"Enables or disables the integrated whois command.");
+			enableChatNicknameCommand = config.getBoolean("enableIntegratedNicknames", "Features", false,
+					"Enables or disables the integrated nickname command.");
+			autoEnableChatNicknameCommand = config.getBoolean("autoIntegratedNicknames", "Features", true,
+					"Automatically enables integrated nickname-related commands if FTB essentials is not present.");
+			enableDiscordBotIntegration = config.getBoolean("enableDiscordIntegration", "Features", false,
+					"Enables or disables discord integration.");
+
+			maximumNicknameLength = config.getInt("maximumNicknameLength", "Limits", 50, 1, 500,
+					"Maximum allowed nickname length for integrated nickname commands.");
+			minimumNicknameLength = config.getInt("minimumNicknameLength", "Limits", 1, 1, 500,
+					"Minimum allowed nickname length for integrated nickname commands.");
+
+		} catch (Exception e) {
+			System.err.println("Error loading configuration file: " + configFile.getName());
+		} finally {
+			if (config.hasChanged()) {
+				config.save();
+			}
 		}
 	}
 }

@@ -1,12 +1,12 @@
-package com.jeremiahbl.bfcmod.config;
+package com.ragex.bfcmod.config;
 
 import java.io.*;
 import java.util.*;
 
-import com.jeremiahbl.bfcmod.BetterForgeChat;
+import com.ragex.bfcmod.BetterForgeChat;
 
 public class PlayerData {
-	public static final Map<UUID, PlayerData> map = new HashMap<>();
+	public static final Map<UUID, PlayerData> map = new HashMap<UUID, PlayerData>();
 	public static final String playerDataFileName = "bfcmod.playerdata";
 	
 	public final UUID uuid;
@@ -101,7 +101,13 @@ public class PlayerData {
 			if((c >= ' ' && c <= '~') && c != '\"' && c != '\\') newStr += c;
 			else {
 				String hex = Integer.toHexString(c);
-				if(hex.length() < 4) hex = "0".repeat(4 - hex.length()) + hex;
+				if (hex.length() < 4) {
+					StringBuilder padding = new StringBuilder();
+					for (int ii = 0; ii < 4 - hex.length(); ii++) {
+						padding.append("0");
+					}
+					hex = padding + hex;
+				}
 				newStr += "\\u" + hex;
 			}
 		}
@@ -116,7 +122,7 @@ public class PlayerData {
 				char c = str.charAt(i);
 				if(c == '\\' && i < str.length() - 6 && str.charAt(i + 1) == 'u') {
 					String hex = str.substring(i + 2, i + 6);
-					out += (char) Integer.parseUnsignedInt(hex, 16);
+					out += (char) Integer.parseInt(hex, 16);
 					i += 5;
 				} else out += c;
 			}

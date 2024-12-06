@@ -1,8 +1,8 @@
-package com.jeremiahbl.bfcmod.utils;
+package com.ragex.bfcmod.utils;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import com.jeremiahbl.bfcmod.config.PlayerData;
+import com.ragex.bfcmod.config.PlayerData;
 import com.mojang.authlib.GameProfile;
 
 public class IntegratedNicknameProvider implements INicknameProvider {

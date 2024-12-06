@@ -1,32 +1,34 @@
-package com.jeremiahbl.bfcmod.config;
+package com.ragex.bfcmod.config;
 
 import java.util.ArrayList;
 
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.config.ModConfigEvent.Reloading;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import java.util.ArrayList;
 
-@EventBusSubscriber
 public class ConfigurationEventHandler {
 	private ArrayList<IReloadable> reloadables = new ArrayList<IReloadable>();
-	
+
+	public ConfigurationEventHandler() {
+		// Register this class to the event bus
+		FMLCommonHandler.instance().bus().register(this);
+	}
+
 	public void registerReloadable(IReloadable rel) {
 		reloadables.add(rel);
 	}
-	
+
 	public void reloadConfigOptions() {
-		for(IReloadable reloadable : reloadables)
-			if(reloadable != null)
+		for (IReloadable reloadable : reloadables) {
+			if (reloadable != null) {
 				reloadable.reloadConfigOptions();
+			}
+		}
 	}
-	
+
 	@SubscribeEvent
-	public void onModConfigReloadingEvent(Reloading e) {
-		reloadConfigOptions();
-	}
-	@SubscribeEvent
-	public void onServerStarted(ServerStartedEvent e) {
+	public void onServerStarted(FMLServerStartedEvent event) {
 		reloadConfigOptions();
 	}
 }

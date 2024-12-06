@@ -1,8 +1,8 @@
-package com.jeremiahbl.bfcmod.utils.moddeps;
+package com.ragex.bfcmod.utils.moddeps;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import com.jeremiahbl.bfcmod.utils.IMetadataProvider;
+import com.ragex.bfcmod.utils.IMetadataProvider;
 import com.mojang.authlib.GameProfile;
 
 import net.luckperms.api.LuckPerms;

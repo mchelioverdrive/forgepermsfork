@@ -1,8 +1,8 @@
-package com.jeremiahbl.bfcmod.utils.moddeps;
+package com.ragex.bfcmod.utils.moddeps;
 
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-import com.jeremiahbl.bfcmod.utils.INicknameProvider;
+import com.ragex.bfcmod.utils.INicknameProvider;
 import com.mojang.authlib.GameProfile;
 
 import dev.ftb.mods.ftbessentials.util.FTBEPlayerData;
